@@ -10,7 +10,7 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
-  const [selectedCard, setselectedCard] = useState({});
+  const [selectedCard, setSelectedCard] = useState({});
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -29,7 +29,7 @@ function App() {
   }
 
   function handleCardClick(card) {
-    setselectedCard(card);
+    setSelectedCard(card);
     setIsImagePopupOpen(true);
   }
 

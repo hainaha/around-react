@@ -5,10 +5,10 @@ import PopupWithForm from "./PopupWithForm";
 
 function Main(props) {
   const [cards, setCards] = useState([]);
-  const [userName, setUserName] = useState();
-  const [userDescription, setUserDescription] = useState();
-  const [userAvatar, setUserAvatar] = useState();
-  const [userId, setUserId] = useState();
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+  const [userId, setUserId] = useState("");
 
   useEffect(() => {
     api.getUserData().then((data) => {
