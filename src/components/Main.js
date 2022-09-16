@@ -1,23 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { api } from "../utils/api";
 import Card from "./Card";
 import PopupWithForm from "./PopupWithForm";
+import { CreateUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
   const [cards, setCards] = useState([]);
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
-  const [userId, setUserId] = useState("");
+  // const [userName, setUserName] = useState("");
+  // const [userDescription, setUserDescription] = useState("");
+  // const [userAvatar, setUserAvatar] = useState("");
+  // const [userId, setUserId] = useState("");
 
-  useEffect(() => {
-    api.getUserData().then((data) => {
-      setUserName(data.name);
-      setUserDescription(data.about);
-      setUserAvatar(data.avatar);
-      setUserId(data._id);
-    });
-  }, []);
+  // useEffect(() => {
+  //   api.getUserData().then((data) => {
+  //     setUserName(data.name);
+  //     setUserDescription(data.about);
+  //     setUserAvatar(data.avatar);
+  //     setUserId(data._id);
+  //   });
+  // }, []);
+
+  const currentUser = useContext(CreateUserContext);
 
   useEffect(() => {
     api.getInitialCards().then((initialCards) => {
@@ -31,7 +34,7 @@ function Main(props) {
         <div className="profile">
           <div className="profile__avatar-container">
             <img
-              src={userAvatar}
+              src={currentUser.avatar}
               className="profile__avatar"
               alt="Foto do perfil"
             />
@@ -60,14 +63,14 @@ function Main(props) {
             </PopupWithForm>
           </div>
           <div className="profile__title-container">
-            <h1 className="profile__title">{userName}</h1>
+            <h1 className="profile__title">{currentUser.name}</h1>
             <button
               className="edit-button"
               type="button"
               onClick={props.onEditProfileClick}
             ></button>
-            <p className="profile__subtitle">{userDescription}</p>
-            <p className="profile__id">{userId}</p>
+            <p className="profile__subtitle">{currentUser.about}</p>
+            <p className="profile__id">{currentUser._id}</p>
             <PopupWithForm
               isOpen={props.isEditProfilePopupOpen}
               setIsOpen={props.onEditProfileClick}

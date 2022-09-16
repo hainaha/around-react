@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { api } from "../utils/api";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
+import { CreateUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -11,6 +13,13 @@ function App() {
   const [isDeleteCardPopupOpen, setIsDeleteCardPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
+
+  useEffect(() => {
+    api.getUserData().then((data) => {
+      setCurrentUser(data);
+    });
+  }, []);
 
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -69,27 +78,29 @@ function App() {
   }, []);
 
   return (
-    <div className="page">
-      <Header />
-      <Main
-        isEditProfilePopupOpen={isEditProfilePopupOpen}
-        onEditProfileClick={handleEditProfileClick}
-        isAddPlacePopupOpen={isAddPlacePopupOpen}
-        onAddPlaceClick={handleAddPlaceClick}
-        isEditAvatarPopupOpen={isEditAvatarPopupOpen}
-        onEditAvatarClick={handleEditAvatarClick}
-        isDeleteCardPopupOpen={isDeleteCardPopupOpen}
-        onDeleteClick={handleDeleteCardClick}
-        onCardClick={handleCardClick}
-        onClose={closeAllPopups}
-      ></Main>
-      <ImagePopup
-        card={selectedCard}
-        isOpen={isImagePopupOpen}
-        onClose={closeAllPopups}
-      />
-      <Footer />
-    </div>
+    <CreateUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Header />
+        <Main
+          isEditProfilePopupOpen={isEditProfilePopupOpen}
+          onEditProfileClick={handleEditProfileClick}
+          isAddPlacePopupOpen={isAddPlacePopupOpen}
+          onAddPlaceClick={handleAddPlaceClick}
+          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
+          onEditAvatarClick={handleEditAvatarClick}
+          isDeleteCardPopupOpen={isDeleteCardPopupOpen}
+          onDeleteClick={handleDeleteCardClick}
+          onCardClick={handleCardClick}
+          onClose={closeAllPopups}
+        ></Main>
+        <ImagePopup
+          card={selectedCard}
+          isOpen={isImagePopupOpen}
+          onClose={closeAllPopups}
+        />
+        <Footer />
+      </div>
+    </CreateUserContext.Provider>
   );
 }
 

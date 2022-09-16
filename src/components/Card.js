@@ -1,4 +1,18 @@
+import { CreateUserContext } from "../contexts/CurrentUserContext";
+import { useContext } from "react";
+
 function Card(props) {
+  const currentUser = useContext(CreateUserContext);
+  const isOwn = props.card.owner._id === currentUser._id;
+  const cardDeleteButtonClassName = isOwn
+    ? "card__delete-icon"
+    : "card__delete-icon_hidden";
+  const isLiked = props.card.likes.some((i) => i._id === currentUser._id);
+  const cardLikeButtonClassName = `like-button ${
+    isLiked && "like-button_active"
+  }`;
+  const cardLikesClassName = `card__likes ${isLiked && "card__likes_active"}`;
+
   function handleClick() {
     props.onCardClick(props.card);
   }
@@ -7,7 +21,7 @@ function Card(props) {
     <>
       <div className="card">
         <button
-          className="card__delete-icon"
+          className={cardDeleteButtonClassName}
           type="submit"
           onClick={props.deletePopup}
         ></button>
@@ -20,8 +34,8 @@ function Card(props) {
         <div className="card__title-container">
           <h2 className="card__title">{props.card.name}</h2>
           <div className="card__like-container">
-            <button className="like-button" type="button"></button>
-            <p className="card__likes">{props.card.likes.length}</p>
+            <button className={cardLikeButtonClassName} type="button"></button>
+            <p className={cardLikesClassName}>{props.card.likes.length}</p>
             <p className="card__id">{props.card._id}</p>
           </div>
         </div>
