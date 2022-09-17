@@ -5,7 +5,7 @@ import PopupWithForm from "./PopupWithForm";
 import { CreateUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  const [cards, setCards] = useState([]);
+  // const [cards, setCards] = useState([]);
   // const [userName, setUserName] = useState("");
   // const [userDescription, setUserDescription] = useState("");
   // const [userAvatar, setUserAvatar] = useState("");
@@ -22,24 +22,24 @@ function Main(props) {
 
   const currentUser = useContext(CreateUserContext);
 
-  useEffect(() => {
-    api.getInitialCards().then((initialCards) => {
-      setCards(initialCards);
-    });
-  }, []);
+  // useEffect(() => {
+  //   api.getInitialCards().then((initialCards) => {
+  //     setCards(initialCards);
+  //   });
+  // }, []);
 
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-    });
-  }
+  // function handleCardLike(card) {
+  //   const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  //   api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+  //     setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+  //   });
+  // }
 
-  function handleCardDelete(card) {
-    api.deleteCard(card._id).then((deletedCard) => {
-      setCards((state) => state.filter((c) => c._id !== deletedCard));
-    });
-  }
+  // function handleCardDelete(card) {
+  //   api.deleteCard(card._id).then((deletedCard) => {
+  //     setCards((state) => state.filter((c) => c._id !== deletedCard));
+  //   });
+  // }
 
   return (
     <>
@@ -56,24 +56,6 @@ function Main(props) {
               type="button"
               onClick={props.onEditAvatarClick}
             ></button>
-            {/* <PopupWithForm
-              isOpen={props.isEditAvatarPopupOpen}
-              setIsOpen={props.onEditAvatarClick}
-              onClose={props.onClose}
-              title={"Alterar a foto do perfil"}
-              name={"edit-avatar"}
-              textButton={"Salvar"}
-            >
-              <input
-                type="url"
-                name="avatar"
-                placeholder="Link da imagem"
-                className="popup__input"
-                id="avatar-image"
-                required
-              />
-              <span className="popup__error avatar-image-error"></span>
-            </PopupWithForm> */}
           </div>
           <div className="profile__title-container">
             <h1 className="profile__title">{currentUser.name}</h1>
@@ -92,7 +74,7 @@ function Main(props) {
           >
             +
           </button>
-          <PopupWithForm
+          {/* <PopupWithForm
             isOpen={props.isAddPlacePopupOpen}
             setIsOpen={props.onAddPlaceClick}
             onClose={props.onClose}
@@ -120,7 +102,7 @@ function Main(props) {
               required
             />
             <span className="popup__error card-image-error"></span>
-          </PopupWithForm>
+          </PopupWithForm> */}
           <PopupWithForm
             isOpen={props.isDeleteCardPopupOpen}
             setIsOpen={props.onDeleteClick}
@@ -131,19 +113,18 @@ function Main(props) {
           ></PopupWithForm>
         </div>
         <section className="content">
-          {cards.map((card) => (
+          {props.cards.map((card) => (
             <>
               <Card
                 card={card}
                 key={card._id}
                 deletePopup={props.onDeleteClick}
                 onCardClick={props.onCardClick}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
+                onCardLike={props.onCardLike}
+                onCardDelete={props.onCardDelete}
               />
             </>
           ))}
-          ;
         </section>
       </main>
     </>

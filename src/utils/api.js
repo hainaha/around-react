@@ -28,7 +28,7 @@ class Api {
   }
 
   addCard(data) {
-    this._loadingData(true, "#create-card");
+    this._loadingData(true, ".popup__button");
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -46,7 +46,7 @@ class Api {
       .catch((err) => {
         console.log(err);
       })
-      .finally(this._loadingData(false, "#create-card"));
+      .finally(this._loadingData(false, ".popup__button"));
   }
 
   deleteCard(cardId) {

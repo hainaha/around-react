@@ -31,7 +31,6 @@ function EditProfilePopup(props) {
   return (
     <PopupWithForm
       isOpen={props.isOpen}
-      //setIsOpen={props.onEditProfileClick}
       onClose={props.onClose}
       title={"Editar perfil"}
       name={"edit-profile"}
