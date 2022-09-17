@@ -98,9 +98,9 @@ class Api {
       });
   }
 
-  updateUserData({ name, about }) {
-    this._loadingData(true, "#edit-profile_save");
-    fetch(`${this._baseUrl}/users/me`, {
+  setUserInfo({ name, about }) {
+    this._loadingData(true, ".popup__button");
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
@@ -117,7 +117,7 @@ class Api {
       .catch((err) => {
         console.log(err);
       })
-      .finally(this._loadingData(false, "#edit-profile_save"));
+      .finally(this._loadingData(false, ".popup__button"));
   }
 
   updateUserImage(imageLink) {

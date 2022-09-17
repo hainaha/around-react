@@ -84,7 +84,7 @@ function Main(props) {
             ></button>
             <p className="profile__subtitle">{currentUser.about}</p>
             <p className="profile__id">{currentUser._id}</p>
-            <PopupWithForm
+            {/* <PopupWithForm
               isOpen={props.isEditProfilePopupOpen}
               setIsOpen={props.onEditProfileClick}
               onClose={props.onClose}
@@ -114,7 +114,7 @@ function Main(props) {
                 maxLength="200"
               />
               <span className="popup__error input-about-error"></span>
-            </PopupWithForm>
+            </PopupWithForm> */}
           </div>
           <button
             className="add-button"

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../utils/api";
 import Header from "./Header";
 import Main from "./Main";
+import EditProfilePopup from "./EditProfilePopup";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import { CreateUserContext } from "../contexts/CurrentUserContext";
@@ -50,6 +51,13 @@ function App() {
     setIsImagePopupOpen(false);
   }
 
+  function handleUpdateUser({ name, about }) {
+    api.setUserInfo({ name, about }).then((data) => {
+      setCurrentUser(data);
+      closeAllPopups();
+    });
+  }
+
   useEffect(() => {
     const handleEscClose = (evt) => {
       if (evt.keyCode === 27) {
@@ -93,6 +101,11 @@ function App() {
           onCardClick={handleCardClick}
           onClose={closeAllPopups}
         ></Main>
+        <EditProfilePopup
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+        />
         <ImagePopup
           card={selectedCard}
           isOpen={isImagePopupOpen}
