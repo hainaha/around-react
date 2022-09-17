@@ -56,7 +56,7 @@ function Main(props) {
               type="button"
               onClick={props.onEditAvatarClick}
             ></button>
-            <PopupWithForm
+            {/* <PopupWithForm
               isOpen={props.isEditAvatarPopupOpen}
               setIsOpen={props.onEditAvatarClick}
               onClose={props.onClose}
@@ -73,7 +73,7 @@ function Main(props) {
                 required
               />
               <span className="popup__error avatar-image-error"></span>
-            </PopupWithForm>
+            </PopupWithForm> */}
           </div>
           <div className="profile__title-container">
             <h1 className="profile__title">{currentUser.name}</h1>
@@ -84,37 +84,6 @@ function Main(props) {
             ></button>
             <p className="profile__subtitle">{currentUser.about}</p>
             <p className="profile__id">{currentUser._id}</p>
-            {/* <PopupWithForm
-              isOpen={props.isEditProfilePopupOpen}
-              setIsOpen={props.onEditProfileClick}
-              onClose={props.onClose}
-              title={"Editar perfil"}
-              name={"edit-profile"}
-              textButton={"Salvar"}
-            >
-              <input
-                type="text"
-                name="name"
-                placeholder="Nome"
-                className="popup__input"
-                id="input-name"
-                required
-                minLength="2"
-                maxLength="40"
-              />
-              <span className="popup__error input-name-error"></span>
-              <input
-                type="text"
-                name="about"
-                placeholder="Sobre mim"
-                className="popup__input"
-                id="input-about"
-                required
-                minLength="2"
-                maxLength="200"
-              />
-              <span className="popup__error input-about-error"></span>
-            </PopupWithForm> */}
           </div>
           <button
             className="add-button"

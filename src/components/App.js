@@ -3,6 +3,7 @@ import { api } from "../utils/api";
 import Header from "./Header";
 import Main from "./Main";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import { CreateUserContext } from "../contexts/CurrentUserContext";
@@ -58,6 +59,13 @@ function App() {
     });
   }
 
+  function handleUpdateAvatar(url) {
+    api.setUserAvatar(url).then((data) => {
+      setCurrentUser(data);
+      closeAllPopups();
+    });
+  }
+
   useEffect(() => {
     const handleEscClose = (evt) => {
       if (evt.keyCode === 27) {
@@ -105,6 +113,11 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+        />
+        <EditAvatarPopup
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
         />
         <ImagePopup
           card={selectedCard}

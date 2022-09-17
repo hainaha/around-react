@@ -120,8 +120,8 @@ class Api {
       .finally(this._loadingData(false, ".popup__button"));
   }
 
-  updateUserImage(imageLink) {
-    this._loadingData(true, "#edit-avatar_save");
+  setUserAvatar(imageLink) {
+    this._loadingData(true, ".popup__button");
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
@@ -138,7 +138,7 @@ class Api {
       .catch((err) => {
         console.log(err);
       })
-      .finally(this._loadingData(false, "#edit-avatar_save"));
+      .finally(this._loadingData(false, ".popup__button"));
   }
 }
 
