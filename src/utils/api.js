@@ -50,13 +50,14 @@ class Api {
   }
 
   deleteCard(cardId) {
-    fetch(`${this._baseUrl}/cards/${cardId}`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
     })
       .then((res) => {
         if (res.ok) {
-          return res.json();
+          // return res.json();
+          return cardId;
         }
         return Promise.reject(`Error: ${res.status}`);
       })
@@ -65,25 +66,10 @@ class Api {
       });
   }
 
-  likeCard(cardId) {
+  changeLikeCardStatus(cardId, isLiked) {
+    const likeMethod = isLiked ? "PUT" : "DELETE";
     return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: "PUT",
-      headers: this._headers,
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  unlikeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-      method: "DELETE",
+      method: likeMethod,
       headers: this._headers,
     })
       .then((res) => {

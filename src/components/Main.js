@@ -28,6 +28,19 @@ function Main(props) {
     });
   }, []);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id).then((deletedCard) => {
+      setCards((state) => state.filter((c) => c._id !== deletedCard));
+    });
+  }
+
   return (
     <>
       <main>
@@ -156,6 +169,8 @@ function Main(props) {
                 key={card._id}
                 deletePopup={props.onDeleteClick}
                 onCardClick={props.onCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
               />
             </>
           ))}
