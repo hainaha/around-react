@@ -12,6 +12,7 @@ function EditAvatarPopup(props) {
   function handleSubmit(e) {
     e.preventDefault();
     props.onUpdateAvatar(avatarRef.current.value);
+    setUrl("");
   }
 
   return (

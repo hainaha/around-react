@@ -16,6 +16,8 @@ function AddPlacePopup(props) {
   function handleSubmit(e) {
     e.preventDefault();
     props.onAddPlaceSubmit({ placeName, imageLink });
+    setPlaceName("");
+    setImageLink("");
   }
 
   return (
