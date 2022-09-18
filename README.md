@@ -25,4 +25,4 @@ Para construção deste projeto foram usados React, Create React App, CSS semân
 
 **GitHub Pages**
 
-- [Link para o projeto publicado no GitHub Pages](https://hainaha.github.io/around_react/)
+- [Link para o projeto publicado no GitHub Pages](https://hainaha.github.io/around-react/)
