@@ -15,13 +15,18 @@ function EditAvatarPopup(props) {
   function handleSubmit(e) {
     e.preventDefault();
     props.onUpdateAvatar(avatarRef.current.value);
-    setUrl("");
+    resetForm();
   }
 
   function handleClose() {
     props.onClose();
-    setUrl("");
+    resetForm();
     props.resetValidation(avatarRef, avatarImageError);
+  }
+
+  function resetForm() {
+    setUrl("");
+    setAvatarIsValid(false);
   }
 
   return (

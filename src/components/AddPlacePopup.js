@@ -26,16 +26,21 @@ function AddPlacePopup(props) {
   function handleSubmit(e) {
     e.preventDefault();
     props.onAddPlaceSubmit({ placeName, imageLink });
-    setPlaceName("");
-    setImageLink("");
+    resetForm();
   }
 
   function handleClose() {
     props.onClose();
-    setPlaceName("");
-    setImageLink("");
+    resetForm();
     props.resetValidation(cardTitleInput, cardTitleError);
     props.resetValidation(cardImageInput, cardImageError);
+  }
+
+  function resetForm() {
+    setPlaceName("");
+    setImageLink("");
+    setNameIsValid(false);
+    setImageIsValid(false);
   }
 
   return (
