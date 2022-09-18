@@ -5,6 +5,7 @@ import Main from "./Main";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import ConfirmDeletePopup from "./ConfirmDeletePopup";
 import Footer from "./Footer";
 import ImagePopup from "./ImagePopup";
 import { CreateUserContext } from "../contexts/CurrentUserContext";
@@ -37,7 +38,8 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function handleDeleteCardClick() {
+  function handleDeleteCardClick(card) {
+    setSelectedCard(card);
     setIsDeleteCardPopupOpen(true);
   }
 
@@ -118,6 +120,7 @@ function App() {
   function handleCardDelete(card) {
     api.deleteCard(card._id).then((deletedCard) => {
       setCards((state) => state.filter((c) => c._id !== deletedCard));
+      closeAllPopups();
     });
   }
 
@@ -126,19 +129,13 @@ function App() {
       <div className="page">
         <Header />
         <Main
-          isEditProfilePopupOpen={isEditProfilePopupOpen}
           onEditProfileClick={handleEditProfileClick}
-          isAddPlacePopupOpen={isAddPlacePopupOpen}
           onAddPlaceClick={handleAddPlaceClick}
-          isEditAvatarPopupOpen={isEditAvatarPopupOpen}
           onEditAvatarClick={handleEditAvatarClick}
-          isDeleteCardPopupOpen={isDeleteCardPopupOpen}
-          onDeleteClick={handleDeleteCardClick}
           onCardClick={handleCardClick}
-          onClose={closeAllPopups}
           cards={cards}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          onCardDelete={handleDeleteCardClick}
         ></Main>
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -159,6 +156,12 @@ function App() {
           card={selectedCard}
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
+        />
+        <ConfirmDeletePopup
+          card={selectedCard}
+          isOpen={isDeleteCardPopupOpen}
+          onClose={closeAllPopups}
+          onDeleteSubmit={handleCardDelete}
         />
         <Footer />
       </div>

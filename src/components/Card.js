@@ -31,7 +31,6 @@ function Card(props) {
         <button
           className={cardDeleteButtonClassName}
           type="submit"
-          // onClick={props.deletePopup}
           onClick={handleDeleteClick}
         ></button>
         <img
