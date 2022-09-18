@@ -4,9 +4,12 @@ import PopupWithForm from "./PopupWithForm";
 function EditAvatarPopup(props) {
   const [url, setUrl] = useState("");
   const avatarRef = useRef();
+  const avatarImageError = useRef();
+  const [avatarIsValid, setAvatarIsValid] = useState(false);
 
   function handleUrlChange(e) {
     setUrl(e.target.value);
+    setAvatarIsValid(props.enableValidation(e, avatarRef, avatarImageError));
   }
 
   function handleSubmit(e) {
@@ -15,14 +18,21 @@ function EditAvatarPopup(props) {
     setUrl("");
   }
 
+  function handleClose() {
+    props.onClose();
+    setUrl("");
+    props.resetValidation(avatarRef, avatarImageError);
+  }
+
   return (
     <PopupWithForm
       isOpen={props.isOpen}
-      onClose={props.onClose}
+      onClose={handleClose}
       title={"Alterar a foto do perfil"}
       name={"edit-avatar"}
       textButton={"Salvar"}
       onSubmit={handleSubmit}
+      isFormValid={avatarIsValid}
     >
       <input
         type="url"
@@ -35,7 +45,7 @@ function EditAvatarPopup(props) {
         ref={avatarRef}
         required
       />
-      <span className="popup__error avatar-image-error"></span>
+      <span ref={avatarImageError}></span>
     </PopupWithForm>
   );
 }

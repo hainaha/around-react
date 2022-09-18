@@ -88,6 +88,28 @@ function App() {
     return () => window.removeEventListener("keydown", handleEscClose);
   }, []);
 
+  function enableValidation(e, inputRef, errorRef) {
+    let isValid = false;
+    if (!e.target.validity.valid) {
+      inputRef.current.className = "popup__input popup__input_type_error";
+      errorRef.current.textContent = inputRef.current.validationMessage;
+      errorRef.current.className = "popup__error popup__error_visible";
+      isValid = false;
+    } else {
+      inputRef.current.className = "popup__input";
+      errorRef.current.textContent = "";
+      errorRef.current.className = "popup__error";
+      isValid = true;
+    }
+    return isValid;
+  }
+
+  function resetValidation(inputRef, errorRef) {
+    inputRef.current.className = "popup__input";
+    errorRef.current.textContent = "";
+    errorRef.current.className = "popup__error";
+  }
+
   useEffect(() => {
     const handleClickOutside = (evt) => {
       if (
@@ -141,16 +163,22 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
+          enableValidation={enableValidation}
+          resetValidation={resetValidation}
         />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
+          enableValidation={enableValidation}
+          resetValidation={resetValidation}
         />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlaceSubmit={handleAddPlaceSubmit}
+          enableValidation={enableValidation}
+          resetValidation={resetValidation}
         />
         <ImagePopup
           card={selectedCard}

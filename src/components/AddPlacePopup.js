@@ -1,17 +1,27 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
   const [placeName, setPlaceName] = useState("");
   const [imageLink, setImageLink] = useState("");
+  const cardTitleInput = useRef();
+  const cardTitleError = useRef();
+  const cardImageInput = useRef();
+  const cardImageError = useRef();
+  const [nameIsValid, setNameIsValid] = useState(false);
+  const [imageIsValid, setImageIsValid] = useState(false);
 
   function handlePlaceNameChange(e) {
     setPlaceName(e.target.value);
+    setNameIsValid(props.enableValidation(e, cardTitleInput, cardTitleError));
   }
 
   function handleImageLinkChange(e) {
     setImageLink(e.target.value);
+    setImageIsValid(props.enableValidation(e, cardImageInput, cardImageError));
   }
+
+  const isFormValid = nameIsValid && imageIsValid;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -20,14 +30,23 @@ function AddPlacePopup(props) {
     setImageLink("");
   }
 
+  function handleClose() {
+    props.onClose();
+    setPlaceName("");
+    setImageLink("");
+    props.resetValidation(cardTitleInput, cardTitleError);
+    props.resetValidation(cardImageInput, cardImageError);
+  }
+
   return (
     <PopupWithForm
       isOpen={props.isOpen}
-      onClose={props.onClose}
+      onClose={handleClose}
       title={"Novo local"}
       name={"addCard"}
       textButton={"Salvar"}
       onSubmit={handleSubmit}
+      isFormValid={isFormValid}
     >
       <input
         type="text"
@@ -40,8 +59,9 @@ function AddPlacePopup(props) {
         maxLength="30"
         value={placeName}
         onChange={handlePlaceNameChange}
+        ref={cardTitleInput}
       />
-      <span className="popup__error card-title-error"></span>
+      <span ref={cardTitleError}></span>
       <input
         type="url"
         name="link"
@@ -50,9 +70,10 @@ function AddPlacePopup(props) {
         id="card-image"
         value={imageLink}
         onChange={handleImageLinkChange}
+        ref={cardImageInput}
         required
       />
-      <span className="popup__error card-image-error"></span>
+      <span ref={cardImageError}></span>
     </PopupWithForm>
   );
 }

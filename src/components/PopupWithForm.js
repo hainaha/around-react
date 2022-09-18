@@ -17,7 +17,15 @@ function PopupWithForm(props) {
           <div className="popup__container">
             <p className="popup__title">{props.title}</p>
             {props.children}
-            <button className="popup__button" type="submit">
+            <button
+              className={
+                props.isFormValid
+                  ? "popup__button"
+                  : "popup__button popup__button_disabled"
+              }
+              type="submit"
+              disabled={!props.isFormValid}
+            >
               {props.textButton}
             </button>
             <button

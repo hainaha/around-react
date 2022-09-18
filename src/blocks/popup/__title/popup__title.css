@@ -5,7 +5,7 @@
   margin: 0 0 76px;
 }
 
-#delete-card_popup .popup__title {
+.popup_type_deleteCard .popup__title {
   margin: 0;
 }
 

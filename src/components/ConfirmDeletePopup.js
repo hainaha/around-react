@@ -1,6 +1,8 @@
 import PopupWithForm from "./PopupWithForm";
 
 function ConfirmDeletePopup(props) {
+  const isFormValid = true;
+
   function handleSubmit(e) {
     e.preventDefault();
     props.onDeleteSubmit(props.card);
@@ -14,6 +16,7 @@ function ConfirmDeletePopup(props) {
       name={"deleteCard"}
       textButton={"Sim"}
       onSubmit={handleSubmit}
+      isFormValid={isFormValid}
     ></PopupWithForm>
   );
 }
